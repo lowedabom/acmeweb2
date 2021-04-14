@@ -1,5 +1,6 @@
 package com.acme.statusmgr;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -35,7 +36,7 @@ public class StatusController {
 
     
     @RequestMapping("/status")
-    public ServerStatus serverStatusRequestHandler(@RequestParam(value="name", defaultValue="Anonymous") String name, @RequestParam List<String> details) {
+    public ServerStatus serverStatusRequestHandler(@RequestParam(value="name", defaultValue="Anonymous") String name, @RequestParam(required = false) List<String> details) {
         StringBuilder sb = new StringBuilder();
         for (String s: details ) {
             sb.append(s+", ");
