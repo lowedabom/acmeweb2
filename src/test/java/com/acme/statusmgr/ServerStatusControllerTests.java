@@ -51,4 +51,11 @@ public class ServerStatusControllerTests {
                 .andExpect(jsonPath("$.contentHeader").value("Server Status requested by RebYid"));
     }
 
+    @Test
+    public void detailed_name_availProc() throws Exception {
+        this.mockMvc.perform(get("/server/status/detailed?details=availableProcessors&name=Yankel"))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("$.contentHeader").value("Server Status requested by Yankel"))
+                .andExpect(jsonPath("$.statusDesc").value("Server is up, and there are 4 processors available"));
+    }
 }
