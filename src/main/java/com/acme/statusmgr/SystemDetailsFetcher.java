@@ -5,7 +5,11 @@ public class SystemDetailsFetcher {
         return Runtime.getRuntime().availableProcessors();
     }
 
-    public static Object getFreeJVMMemory() {
+    public static long getFreeJVMMemory() {
         return Runtime.getRuntime().freeMemory();
+    }
+
+    public static long getTotalJVMMemory() {
+        return Runtime.getRuntime().totalMemory();
     }
 }

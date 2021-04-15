@@ -23,7 +23,9 @@ public class DetailedStatusDecoratorFactory extends DetailedStatusInterface {
                 return new AvailableProcessorsStatus(detailedStatusInterface);
             case "freeJVMMemory":
                 return new FreeJVMMemoryStatus(detailedStatusInterface);
-            default:
+            case "totalJVMMemory":
+                return new TotalJVMMemoryStatus(detailedStatusInterface);
+                default:
                 return null;
         }
     }
