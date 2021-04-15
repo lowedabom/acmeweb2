@@ -1,6 +1,5 @@
 package com.acme.statusmgr;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -52,7 +51,7 @@ public class StatusController {
     public ServerStatus serverStatusDetailedRequestHandler(@RequestParam(value="name", defaultValue="Anonymous") String name, @RequestParam List<String> details) {
         DetailedStatusInterface detailedStatus = new DetailedStatus();
         for (String detail:details) {
-            detailedStatus = new DetailedStatusDecoratorFinder(detailedStatus,detail);
+            detailedStatus = new DetailedStatusDecoratorFactory(detailedStatus,detail);
         }
         ServerStatus serverStatus= new ServerStatus(counter.incrementAndGet(),
                 String.format(template, name));
