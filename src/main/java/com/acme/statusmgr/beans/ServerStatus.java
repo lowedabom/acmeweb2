@@ -45,5 +45,5 @@ public class ServerStatus {
         return statusDesc;
     }
 
-
+public void setStatusDesc(String s){ statusDesc = s;}
 }
