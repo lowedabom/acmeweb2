@@ -1,9 +1,9 @@
 package com.acme.statusmgr;
 
-import com.acme.statusmgr.beans.DetailedStatusInterface;
+import com.acme.statusmgr.beans.AbstractDetailedStatus;
 
-public class FreeJVMMemoryStatus extends DetailedStatusInterface {
-    public FreeJVMMemoryStatus(DetailedStatusInterface detailedStatusInterface) {
+public class FreeJVMMemoryStatus extends AbstractDetailedStatus {
+    public FreeJVMMemoryStatus(AbstractDetailedStatus detailedStatusInterface) {
     }
 
     @Override

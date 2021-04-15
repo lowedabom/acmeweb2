@@ -1,10 +1,10 @@
 package com.acme.statusmgr.beans;
 
-public abstract class DetailedStatusInterface {
+public abstract class AbstractDetailedStatus {
 
     public boolean mockImplementation = false;
     public String detailDescription= "";
-    public DetailedStatusInterface detailedStatusInterface;
+    public AbstractDetailedStatus abstractDetailedStatus;
 
     public abstract String getStatusInEnglish();
 

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.acme.statusmgr.beans.DetailedStatus;
-import com.acme.statusmgr.beans.DetailedStatusInterface;
+import com.acme.statusmgr.beans.AbstractDetailedStatus;
 import com.acme.statusmgr.beans.ServerStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,7 +49,7 @@ public class StatusController {
     }
     @RequestMapping("/status/detailed")
     public ServerStatus serverStatusDetailedRequestHandler(@RequestParam(value="name", defaultValue="Anonymous") String name, @RequestParam List<String> details) {
-        DetailedStatusInterface detailedStatus = new DetailedStatus();
+        AbstractDetailedStatus detailedStatus = new DetailedStatus();
         for (String detail:details) {
             detailedStatus = new DetailedStatusDecoratorFactory(detailedStatus,detail);
         }

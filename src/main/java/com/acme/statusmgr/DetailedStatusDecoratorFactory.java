@@ -1,30 +1,30 @@
 package com.acme.statusmgr;
 
-import com.acme.statusmgr.beans.DetailedStatusInterface;
+import com.acme.statusmgr.beans.AbstractDetailedStatus;
 
-public class DetailedStatusDecoratorFactory extends DetailedStatusInterface {
+public class DetailedStatusDecoratorFactory extends AbstractDetailedStatus {
     String detailName;
-    DetailedStatusInterface decorator;
+    AbstractDetailedStatus decorator;
 
-    public DetailedStatusDecoratorFactory(DetailedStatusInterface detailedStatusInterface, String detail) {
+    public DetailedStatusDecoratorFactory(AbstractDetailedStatus abstractDetailedStatus, String detail) {
         detailName = detail;
-        this.detailedStatusInterface = detailedStatusInterface;
+        this.abstractDetailedStatus = abstractDetailedStatus;
         decorator = findDecorator();
     }
 
     @Override
     public String getStatusInEnglish() {
-        return detailedStatusInterface.getStatusInEnglish() + decorator.getStatusInEnglish();
+        return abstractDetailedStatus.getStatusInEnglish() + decorator.getStatusInEnglish();
     }
 
-    public DetailedStatusInterface findDecorator() {
+    public AbstractDetailedStatus findDecorator() {
         switch (detailName) {
             case "availableProcessors":
-                return new AvailableProcessorsStatus(detailedStatusInterface);
+                return new AvailableProcessorsStatus(abstractDetailedStatus);
             case "freeJVMMemory":
-                return new FreeJVMMemoryStatus(detailedStatusInterface);
+                return new FreeJVMMemoryStatus(abstractDetailedStatus);
             case "totalJVMMemory":
-                return new TotalJVMMemoryStatus(detailedStatusInterface);
+                return new TotalJVMMemoryStatus(abstractDetailedStatus);
                 default:
                 return null;
         }

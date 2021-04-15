@@ -1,9 +1,9 @@
 package com.acme.statusmgr;
 
-import com.acme.statusmgr.beans.DetailedStatusInterface;
+import com.acme.statusmgr.beans.AbstractDetailedStatus;
 
-public class AvailableProcessorsStatus extends DetailedStatusInterface {
-    public AvailableProcessorsStatus(DetailedStatusInterface detailedStatusInterface) {
+public class AvailableProcessorsStatus extends AbstractDetailedStatus {
+    public AvailableProcessorsStatus(AbstractDetailedStatus abstractDetailedStatus) {
     }
 
     @Override
