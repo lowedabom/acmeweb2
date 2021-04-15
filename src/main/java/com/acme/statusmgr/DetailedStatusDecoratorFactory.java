@@ -25,6 +25,8 @@ public class DetailedStatusDecoratorFactory extends AbstractDetailedStatus {
                 return new FreeJVMMemoryStatus(abstractDetailedStatus);
             case "totalJVMMemory":
                 return new TotalJVMMemoryStatus(abstractDetailedStatus);
+            case "jreVersion":
+                return new JREVersionStatus(abstractDetailedStatus);
                 default:
                 return null;
         }

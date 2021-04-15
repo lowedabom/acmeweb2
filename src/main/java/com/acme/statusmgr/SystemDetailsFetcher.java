@@ -12,4 +12,8 @@ public class SystemDetailsFetcher {
     public static long getTotalJVMMemory() {
         return Runtime.getRuntime().totalMemory();
     }
+
+    public static String getJREVersion() {
+        return Runtime.version().toString();
+    }
 }
