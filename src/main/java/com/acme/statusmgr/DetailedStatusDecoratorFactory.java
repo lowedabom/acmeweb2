@@ -14,7 +14,7 @@ public class DetailedStatusDecoratorFactory extends AbstractDetailedStatus {
 
     @Override
     public String getStatusInEnglish() {
-        return abstractDetailedStatus.getStatusInEnglish() + decorator.getStatusInEnglish();
+        return decorator.getStatusInEnglish();
     }
 
     public AbstractDetailedStatus findDecorator() {
