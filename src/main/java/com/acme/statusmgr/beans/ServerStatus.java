@@ -1,6 +1,7 @@
 package com.acme.statusmgr.beans;
 
 import com.acme.servermgr.ServerManager;
+import com.acme.statusmgr.SystemDetailsFetcher;
 
 /**
  * A POJO that represents Server Status and can be used to generate JSON for that status
@@ -24,7 +25,7 @@ public class ServerStatus {
         this.contentHeader = contentHeader;
 
         // Obtain current status of server
-        this.statusDesc = "Server is " + ServerManager.getCurrentServerStatus();
+        this.statusDesc = "Server is " + SystemDetailsFetcher.getServerStatus();
     }
 
     public ServerStatus() {
