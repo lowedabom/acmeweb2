@@ -16,4 +16,8 @@ public class SystemDetailsFetcher {
     public static String getJREVersion() {
         return Runtime.version().toString();
     }
+
+    public static String getTempLocation() {
+        return System.getenv("TEMP");
+    }
 }
