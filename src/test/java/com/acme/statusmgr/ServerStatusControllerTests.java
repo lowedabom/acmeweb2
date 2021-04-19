@@ -15,6 +15,7 @@
  */
 package com.acme.statusmgr;
 
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -77,6 +78,7 @@ public class ServerStatusControllerTests {
     @Test
     public void detailed_name_JunkError() throws Exception {
         this.mockMvc.perform(get("/server/status/detailed?name=Yankel&details=availableProcessors,junkERROR"))
-                .andDo(print()).andExpect(status().isBadRequest());
+                .andDo(print()).andExpect(status().isBadRequest())
+                .andExpect(status().reason(is("invalid detail requested")));
                 }
 }

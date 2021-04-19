@@ -36,7 +36,7 @@ public class DetailedStatusDecoratorFactory extends AbstractDetailedStatus {
         }
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "invalid detail requested")
     public class InvalidDetailException extends RuntimeException {
         public InvalidDetailException(String message) {
             super(message);
