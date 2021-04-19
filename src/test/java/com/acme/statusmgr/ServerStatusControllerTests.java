@@ -73,4 +73,10 @@ public class ServerStatusControllerTests {
                 .andExpect(jsonPath("$.contentHeader").value("Server Status requested by Yankel"))
                 .andExpect(jsonPath("$.statusDesc").value("Server is up, and there are 4 processors available, and there are 4 processors available"));
     }
+
+    @Test
+    public void detailed_name_JunkError() throws Exception {
+        this.mockMvc.perform(get("/server/status/detailed?name=Yankel&details=availableProcessors,junkERROR"))
+                .andDo(print()).andExpect(status().isBadRequest());
+                }
 }

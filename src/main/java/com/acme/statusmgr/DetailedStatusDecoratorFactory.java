@@ -1,6 +1,8 @@
 package com.acme.statusmgr;
 
 import com.acme.statusmgr.beans.AbstractDetailedStatus;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 public class DetailedStatusDecoratorFactory extends AbstractDetailedStatus {
     String detailName;
@@ -29,9 +31,15 @@ public class DetailedStatusDecoratorFactory extends AbstractDetailedStatus {
                 return new JREVersionStatus(abstractDetailedStatus);
             case "tempLocation":
                 return new TempLocationStatus(abstractDetailedStatus);
-                default:
-                return null;
+            default:
+                    throw new InvalidDetailException("Invalid details option: " + detailName);
         }
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public class InvalidDetailException extends RuntimeException {
+        public InvalidDetailException(String message) {
+            super(message);
+        }
+    }
 }
