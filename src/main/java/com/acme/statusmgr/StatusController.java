@@ -55,7 +55,7 @@ public class StatusController {
         }
         ServerStatus serverStatus= new ServerStatus(counter.incrementAndGet(),
                 String.format(template, name));
-        serverStatus.setStatusDesc(serverStatus.getStatusDesc()+detailedStatus.getStatusInEnglish());
+        serverStatus.setStatusDesc(serverStatus.getStatusInEnglish()+detailedStatus.getStatusInEnglish());
         return serverStatus;
     }
 

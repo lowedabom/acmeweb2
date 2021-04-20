@@ -9,7 +9,7 @@ public class AvailableProcessorsStatus extends AbstractDetailedStatus {
 
     @Override
     public String getStatusInEnglish() {
-        return abstractDetailedStatus.getStatusInEnglish() + String.format(", and there are %s processors available",SystemDetailsFetcher.getAvailableProcessors());
+        return abstractDetailedStatus.getStatusInEnglish() + String.format(", and there are %s processors available", systemDetailsFetcherInterface.getAvailableProcessors());
     }
 
 }

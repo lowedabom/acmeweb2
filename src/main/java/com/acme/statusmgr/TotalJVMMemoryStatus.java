@@ -9,6 +9,6 @@ public class TotalJVMMemoryStatus extends AbstractDetailedStatus {
 
     @Override
     public String getStatusInEnglish() {
-        return abstractDetailedStatus.getStatusInEnglish() + String.format(", and there is a total of %s bytes of JVM memory",SystemDetailsFetcher.getTotalJVMMemory());
+        return abstractDetailedStatus.getStatusInEnglish() + String.format(", and there is a total of %s bytes of JVM memory", systemDetailsFetcherInterface.getTotalJVMMemory());
     }
 }

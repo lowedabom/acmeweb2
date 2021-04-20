@@ -9,6 +9,6 @@ public class TempLocationStatus extends AbstractDetailedStatus {
 
     @Override
     public String getStatusInEnglish() {
-        return abstractDetailedStatus.getStatusInEnglish() + String.format(", and the server's temp file location is %s",SystemDetailsFetcher.getTempLocation());
+        return abstractDetailedStatus.getStatusInEnglish() + String.format(", and the server's temp file location is %s", systemDetailsFetcherInterface.getTempLocation());
     }
 }

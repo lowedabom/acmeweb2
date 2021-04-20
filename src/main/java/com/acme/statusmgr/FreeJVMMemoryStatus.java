@@ -9,6 +9,6 @@ public class FreeJVMMemoryStatus extends AbstractDetailedStatus {
 
     @Override
     public String getStatusInEnglish() {
-        return abstractDetailedStatus.getStatusInEnglish() + String.format(", and there are %s bytes of JVM memory free",SystemDetailsFetcher.getFreeJVMMemory());
+        return abstractDetailedStatus.getStatusInEnglish() + String.format(", and there are %s bytes of JVM memory free", systemDetailsFetcherInterface.getFreeJVMMemory());
     }
 }

@@ -2,27 +2,35 @@ package com.acme.statusmgr;
 
 import com.acme.servermgr.ServerManager;
 
-public class SystemDetailsFetcher {
-    public static int getAvailableProcessors() {
+public class SystemDetailsFetcher implements SystemDetailsFetcherInterface {
+
+    @Override
+    public int getAvailableProcessors() {
         return Runtime.getRuntime().availableProcessors();
     }
 
-    public static long getFreeJVMMemory() {
+    @Override
+    public long getFreeJVMMemory() {
         return Runtime.getRuntime().freeMemory();
     }
 
-    public static long getTotalJVMMemory() {
+    @Override
+    public long getTotalJVMMemory() {
         return Runtime.getRuntime().totalMemory();
     }
 
-    public static String getJREVersion() {
+    @Override
+    public String getJREVersion()  {
         return Runtime.version().toString();
     }
 
-    public static String getTempLocation() {
+    @Override
+    public String getTempLocation() {
         return System.getenv("TEMP");
     }
-    public static String getServerStatus(){
+
+    @Override
+    public String getServerStatus() {
         return ServerManager.getCurrentServerStatus();
     }
 }

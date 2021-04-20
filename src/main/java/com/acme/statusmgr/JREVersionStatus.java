@@ -9,6 +9,6 @@ public class JREVersionStatus extends AbstractDetailedStatus {
 
     @Override
     public String getStatusInEnglish() {
-        return abstractDetailedStatus.getStatusInEnglish() + String.format(", and the JRE version is %s",SystemDetailsFetcher.getJREVersion());
+        return abstractDetailedStatus.getStatusInEnglish() + String.format(", and the JRE version is %s", systemDetailsFetcherInterface.getJREVersion());
     }
 }
