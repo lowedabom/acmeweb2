@@ -15,12 +15,17 @@
  */
 package com.acme.statusmgr;
 
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.acme.statusmgr.beans.BaseStatus;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -35,6 +40,11 @@ public class ServerStatusControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Before
+    public void setUp() throws Exception {
+        BaseStatus.systemDetailsFetcherInterface = new SystemDetailsFetcherTestImplementation();
+    }
 
     @Test
     public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
@@ -51,4 +61,34 @@ public class ServerStatusControllerTests {
                 .andExpect(jsonPath("$.contentHeader").value("Server Status requested by RebYid"));
     }
 
+    @Test
+    public void detailed_name_availProc() throws Exception {
+        this.mockMvc.perform(get("/server/status/detailed?details=availableProcessors&name=Yankel"))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("$.contentHeader").value("Server Status requested by Yankel"))
+                .andExpect(jsonPath("$.statusDesc").value("Server is up, and there are 4 processors available"));
+    }
+
+    @Test
+    public void detailed_name_server_availProc_freeMem_totalMem_jRE_tempLoc() throws Exception {
+        this.mockMvc.perform(get("/server/status/detailed?name=Yankel&details=server,availableProcessors,freeJVMMemory,totalJVMMemory,jreVersion,tempLocation"))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("$.contentHeader").value("Server Status requested by Yankel"))
+                .andExpect(jsonPath("$.statusDesc").value("Server is up, and server is up, and there are 4 processors available, and there are 127268272 bytes of JVM memory free, and there is a total of 159383552 bytes of JVM memory, and the JRE version is 15.0.2+7-27, and the server's temp file location is M:\\AppData\\Local\\Temp"));
+    }
+    @Test
+    public void detailed_name_availProcX2() throws Exception {
+        this.mockMvc.perform(get("/server/status/detailed?name=Yankel&details=availableProcessors,availableProcessors"))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("$.contentHeader").value("Server Status requested by Yankel"))
+                .andExpect(jsonPath("$.statusDesc").value("Server is up, and there are 4 processors available, and there are 4 processors available"));
+    }
+
+    @Test
+    public void detailed_name_JunkError() throws Exception {
+        this.mockMvc.perform(get("/server/status/detailed?name=Yankel&details=availableProcessors,junkERROR"))
+                .andDo(print()).andExpect(status().isBadRequest())
+                .andExpect(status().reason(is("invalid detail requested")))
+                .andExpect(result -> Assertions.assertEquals("Invalid details option: junkERROR", result.getResolvedException().getMessage()));
+                }
 }

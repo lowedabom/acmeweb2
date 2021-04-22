@@ -3,7 +3,7 @@ package com.acme.statusmgr;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.acme.statusmgr.beans.ServerStatus;
+import com.acme.statusmgr.beans.BaseStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,14 +35,39 @@ public class StatusController {
 
     
     @RequestMapping("/status")
-    public ServerStatus serverStatusRequestHandler(@RequestParam(value="name", defaultValue="Anonymous") String name, @RequestParam List<String> details) {
+    public BaseStatus serverStatusRequestHandler(@RequestParam(value="name", defaultValue="Anonymous") String name, @RequestParam(required = false) List<String> details) {
+        if (details == null) {
+            BaseStatus status = new BaseStatus(counter.incrementAndGet(),
+                    String.format(template, name));
+            status.setDefaultStatusDesc();
+            return status;
+        }
         StringBuilder sb = new StringBuilder();
         for (String s: details ) {
             sb.append(s+", ");
         }
         System.out.println("*** DEBUG INFO *** details = " + sb);
 
-        return new ServerStatus(counter.incrementAndGet(),
+        return new BaseStatus(counter.incrementAndGet(),
                             String.format(template, name));
     }
+
+    /**
+     * request handler which returns JSON of a status object representing the status of several details as request by the user.
+     * @param name name of requester
+     * @param details list of details requested
+     * @return BaseStatus representing status of all details requested
+     */
+
+    @RequestMapping("/status/detailed")
+    public BaseStatus serverStatusDetailedRequestHandler(@RequestParam(value="name", defaultValue="Anonymous") String name, @RequestParam List<String> details) {
+        BaseStatus detailedStatus = new BaseStatus(counter.incrementAndGet(),
+                String.format(template, name));
+        detailedStatus.setDefaultStatusDesc();
+        for (String detail:details) {
+            detailedStatus = new DetailedStatusDecoratorFactory(detailedStatus,detail).createDecorator();
+        }
+        return detailedStatus;
+    }
+
 }
