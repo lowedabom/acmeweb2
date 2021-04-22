@@ -4,6 +4,7 @@ package com.acme.statusmgr.beans;
  * A POJO that represents Server Status and can be used to generate JSON for that status
  */
 public class ServerStatus extends BaseStatus {
+    BaseStatus baseStatus;
 
     public ServerStatus(BaseStatus baseStatus) {
         super(baseStatus.getId(), baseStatus.getContentHeader());

@@ -3,6 +3,8 @@ package com.acme.statusmgr;
 import com.acme.statusmgr.beans.BaseStatus;
 
 public class AvailableProcessorsStatus extends BaseStatus {
+    BaseStatus baseStatus;
+
     public AvailableProcessorsStatus(BaseStatus baseStatus) {
         super(baseStatus.getId(), baseStatus.getContentHeader());
         this.baseStatus = baseStatus;

@@ -6,7 +6,6 @@ import com.acme.statusmgr.SystemDetailsFetcherInterface;
 public class BaseStatus {
 
     public String statusDesc = "";
-    public BaseStatus baseStatus;
     static public SystemDetailsFetcherInterface systemDetailsFetcherInterface = new SystemDetailsFetcher();
     private  long id;
     private String contentHeader;

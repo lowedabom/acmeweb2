@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class DetailedStatusDecoratorFactory extends BaseStatus {
     String detailName;
     BaseStatus decorator;
+    BaseStatus baseStatus;
 
     public DetailedStatusDecoratorFactory(BaseStatus baseStatus, String detail) {
         super(baseStatus.getId(), baseStatus.getContentHeader());
