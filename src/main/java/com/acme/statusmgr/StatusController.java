@@ -36,6 +36,12 @@ public class StatusController {
     
     @RequestMapping("/status")
     public BaseStatus serverStatusRequestHandler(@RequestParam(value="name", defaultValue="Anonymous") String name, @RequestParam(required = false) List<String> details) {
+        if (details == null) {
+            BaseStatus status = new BaseStatus(counter.incrementAndGet(),
+                    String.format(template, name));
+            status.setDefaultStatusDesc();
+            return status;
+        }
         StringBuilder sb = new StringBuilder();
         for (String s: details ) {
             sb.append(s+", ");
