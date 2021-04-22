@@ -22,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -79,6 +80,7 @@ public class ServerStatusControllerTests {
     public void detailed_name_JunkError() throws Exception {
         this.mockMvc.perform(get("/server/status/detailed?name=Yankel&details=availableProcessors,junkERROR"))
                 .andDo(print()).andExpect(status().isBadRequest())
-                .andExpect(status().reason(is("invalid detail requested")));
+                .andExpect(status().reason(is("invalid detail requested")))
+                .andExpect(result -> Assertions.assertEquals("Invalid details option: junkERROR", result.getResolvedException().getMessage()));
                 }
 }
