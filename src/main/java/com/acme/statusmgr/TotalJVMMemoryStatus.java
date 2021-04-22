@@ -1,14 +1,15 @@
 package com.acme.statusmgr;
 
-import com.acme.statusmgr.beans.AbstractDetailedStatus;
+import com.acme.statusmgr.beans.BaseStatus;
 
-public class TotalJVMMemoryStatus extends AbstractDetailedStatus {
-    public TotalJVMMemoryStatus(AbstractDetailedStatus abstractDetailedStatus) {
-        this.abstractDetailedStatus = abstractDetailedStatus;
+public class TotalJVMMemoryStatus extends BaseStatus {
+    public TotalJVMMemoryStatus(BaseStatus baseStatus) {
+        super(baseStatus.getId(), baseStatus.getContentHeader());
+        this.baseStatus = baseStatus;
     }
 
     @Override
-    public String getStatusInEnglish() {
-        return abstractDetailedStatus.getStatusInEnglish() + String.format(", and there is a total of %s bytes of JVM memory", systemDetailsFetcherInterface.getTotalJVMMemory());
+    public String getStatusDesc() {
+        return baseStatus.getStatusDesc() + String.format(", and there is a total of %s bytes of JVM memory", systemDetailsFetcherInterface.getTotalJVMMemory());
     }
 }

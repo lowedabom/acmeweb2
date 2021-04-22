@@ -1,36 +1,39 @@
 package com.acme.statusmgr;
 
-import com.acme.statusmgr.beans.AbstractDetailedStatus;
+import com.acme.statusmgr.beans.BaseStatus;
+import com.acme.statusmgr.beans.ServerStatus;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-public class DetailedStatusDecoratorFactory extends AbstractDetailedStatus {
+public class DetailedStatusDecoratorFactory extends BaseStatus {
     String detailName;
-    AbstractDetailedStatus decorator;
+    BaseStatus decorator;
 
-    public DetailedStatusDecoratorFactory(AbstractDetailedStatus abstractDetailedStatus, String detail) {
+    public DetailedStatusDecoratorFactory(BaseStatus baseStatus, String detail) {
+        super(baseStatus.getId(), baseStatus.getContentHeader());
         detailName = detail;
-        this.abstractDetailedStatus = abstractDetailedStatus;
-        decorator = findDecorator();
+        this.baseStatus = baseStatus;
     }
 
     @Override
-    public String getStatusInEnglish() {
-        return decorator.getStatusInEnglish();
+    public String getStatusDesc() {
+        return decorator.getStatusDesc();
     }
 
-    public AbstractDetailedStatus findDecorator() {
+    public BaseStatus createDecorator() {
         switch (detailName) {
+            case "server":
+                return new ServerStatus(baseStatus);
             case "availableProcessors":
-                return new AvailableProcessorsStatus(abstractDetailedStatus);
+                return new AvailableProcessorsStatus(baseStatus);
             case "freeJVMMemory":
-                return new FreeJVMMemoryStatus(abstractDetailedStatus);
+                return new FreeJVMMemoryStatus(baseStatus);
             case "totalJVMMemory":
-                return new TotalJVMMemoryStatus(abstractDetailedStatus);
+                return new TotalJVMMemoryStatus(baseStatus);
             case "jreVersion":
-                return new JREVersionStatus(abstractDetailedStatus);
+                return new JREVersionStatus(baseStatus);
             case "tempLocation":
-                return new TempLocationStatus(abstractDetailedStatus);
+                return new TempLocationStatus(baseStatus);
             default:
                     throw new InvalidDetailException("Invalid details option: " + detailName);
         }

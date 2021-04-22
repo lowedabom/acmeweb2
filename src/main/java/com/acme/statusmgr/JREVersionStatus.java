@@ -1,14 +1,15 @@
 package com.acme.statusmgr;
 
-import com.acme.statusmgr.beans.AbstractDetailedStatus;
+import com.acme.statusmgr.beans.BaseStatus;
 
-public class JREVersionStatus extends AbstractDetailedStatus {
-    public JREVersionStatus(AbstractDetailedStatus abstractDetailedStatus) {
-        this.abstractDetailedStatus = abstractDetailedStatus;
+public class JREVersionStatus extends BaseStatus {
+    public JREVersionStatus(BaseStatus baseStatus) {
+        super(baseStatus.getId(), baseStatus.getContentHeader());
+        this.baseStatus = baseStatus;
     }
 
     @Override
-    public String getStatusInEnglish() {
-        return abstractDetailedStatus.getStatusInEnglish() + String.format(", and the JRE version is %s", systemDetailsFetcherInterface.getJREVersion());
+    public String getStatusDesc() {
+        return baseStatus.getStatusDesc() + String.format(", and the JRE version is %s", systemDetailsFetcherInterface.getJREVersion());
     }
 }

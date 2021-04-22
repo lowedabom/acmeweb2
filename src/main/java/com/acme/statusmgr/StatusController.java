@@ -3,9 +3,7 @@ package com.acme.statusmgr;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.acme.statusmgr.beans.DetailedStatus;
-import com.acme.statusmgr.beans.AbstractDetailedStatus;
-import com.acme.statusmgr.beans.ServerStatus;
+import com.acme.statusmgr.beans.BaseStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,26 +35,25 @@ public class StatusController {
 
     
     @RequestMapping("/status")
-    public ServerStatus serverStatusRequestHandler(@RequestParam(value="name", defaultValue="Anonymous") String name, @RequestParam(required = false) List<String> details) {
+    public BaseStatus serverStatusRequestHandler(@RequestParam(value="name", defaultValue="Anonymous") String name, @RequestParam(required = false) List<String> details) {
         StringBuilder sb = new StringBuilder();
         for (String s: details ) {
             sb.append(s+", ");
         }
         System.out.println("*** DEBUG INFO *** details = " + sb);
 
-        return new ServerStatus(counter.incrementAndGet(),
+        return new BaseStatus(counter.incrementAndGet(),
                             String.format(template, name));
     }
     @RequestMapping("/status/detailed")
-    public ServerStatus serverStatusDetailedRequestHandler(@RequestParam(value="name", defaultValue="Anonymous") String name, @RequestParam List<String> details) {
-        AbstractDetailedStatus detailedStatus = new DetailedStatus();
-        for (String detail:details) {
-            detailedStatus = new DetailedStatusDecoratorFactory(detailedStatus,detail);
-        }
-        ServerStatus serverStatus= new ServerStatus(counter.incrementAndGet(),
+    public BaseStatus serverStatusDetailedRequestHandler(@RequestParam(value="name", defaultValue="Anonymous") String name, @RequestParam List<String> details) {
+        BaseStatus detailedStatus = new BaseStatus(counter.incrementAndGet(),
                 String.format(template, name));
-        serverStatus.setStatusDesc(serverStatus.getStatusInEnglish()+detailedStatus.getStatusInEnglish());
-        return serverStatus;
+        detailedStatus.setDefaultStatusDesc();
+        for (String detail:details) {
+            detailedStatus = new DetailedStatusDecoratorFactory(detailedStatus,detail).createDecorator();
+        }
+        return detailedStatus;
     }
 
 }

@@ -1,14 +1,15 @@
 package com.acme.statusmgr;
 
-import com.acme.statusmgr.beans.AbstractDetailedStatus;
+import com.acme.statusmgr.beans.BaseStatus;
 
-public class FreeJVMMemoryStatus extends AbstractDetailedStatus {
-    public FreeJVMMemoryStatus(AbstractDetailedStatus abstractDetailedStatus) {
-        this.abstractDetailedStatus = abstractDetailedStatus;
+public class FreeJVMMemoryStatus extends BaseStatus {
+    public FreeJVMMemoryStatus(BaseStatus baseStatus) {
+        super(baseStatus.getId(), baseStatus.getContentHeader());
+        this.baseStatus = baseStatus;
     }
 
     @Override
-    public String getStatusInEnglish() {
-        return abstractDetailedStatus.getStatusInEnglish() + String.format(", and there are %s bytes of JVM memory free", systemDetailsFetcherInterface.getFreeJVMMemory());
+    public String getStatusDesc() {
+        return baseStatus.getStatusDesc() + String.format(", and there are %s bytes of JVM memory free", systemDetailsFetcherInterface.getFreeJVMMemory());
     }
 }
