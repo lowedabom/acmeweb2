@@ -2,7 +2,7 @@ package com.acme.statusmgr;
 
 import com.acme.statusmgr.beans.BaseStatus;
 /**
- * Decorator that adds Server Status to the base class passed in.
+ * Decorator that adds temp location Status to the base class passed in.
  */
 public class TempLocationStatus extends BaseStatus {
     BaseStatus baseStatus;
@@ -15,7 +15,7 @@ public class TempLocationStatus extends BaseStatus {
         this.baseStatus = baseStatus;
     }
     /**
-     * Adds server status data on top of the base class's statusDesc.
+     * Adds temp location status data on top of the base class's statusDesc.
      * Uses SystemDetailsFetcherInterface to get the data.
      * @return String representing the new and improved statusDesc value
      */
