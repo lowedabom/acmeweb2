@@ -3,6 +3,11 @@ package com.acme.statusmgr.beans;
 import com.acme.statusmgr.SystemDetailsFetcher;
 import com.acme.statusmgr.SystemDetailsFetcherInterface;
 
+/**
+ * POJO general status for the server. contains id, content header, and status description for whether the server is up or not.
+ * This class must return a pretty, english-like representation of the server status.
+ * Can be used to generate JSON for that status
+ */
 public class BaseStatus {
 
     public String statusDesc = "";
@@ -13,7 +18,7 @@ public class BaseStatus {
     /**
      * Construct a BaseStatus using info passed in for identification, and obtaining current
      * server status from the appropriate facade class.
-     * This class must return a pretty, english-like representation of the server status.
+     *
      *
      * @param id                a numeric identifier/counter of which request this
      * @param contentHeader     info about the request
@@ -37,6 +42,9 @@ public class BaseStatus {
 
     public void setStatusDesc(String s){ statusDesc = s;}
 
+    /**
+     * sets default value for statusDesc
+     */
     public void setDefaultStatusDesc(){
         setStatusDesc("Server is " + systemDetailsFetcherInterface.getServerStatus());
     }

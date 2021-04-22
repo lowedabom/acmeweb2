@@ -1,5 +1,8 @@
 package com.acme.statusmgr;
 
+/**
+ * returns data for system and runtime details
+ */
 public interface SystemDetailsFetcherInterface {
     int getAvailableProcessors();
 

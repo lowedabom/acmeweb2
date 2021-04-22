@@ -1,5 +1,8 @@
 package com.acme.statusmgr;
 
+/**
+ * returns hardcoded values for testing purposes to represent system details
+ */
 public class SystemDetailsFetcherTestImplementation implements SystemDetailsFetcherInterface{
     @Override
     public int getAvailableProcessors() {

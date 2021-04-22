@@ -45,6 +45,14 @@ public class StatusController {
         return new BaseStatus(counter.incrementAndGet(),
                             String.format(template, name));
     }
+
+    /**
+     * request handler which returns JSON of a status object representing the status of several details as request by the user.
+     * @param name name of requester
+     * @param details list of details requested
+     * @return BaseStatus representing status of all details requested
+     */
+
     @RequestMapping("/status/detailed")
     public BaseStatus serverStatusDetailedRequestHandler(@RequestParam(value="name", defaultValue="Anonymous") String name, @RequestParam List<String> details) {
         BaseStatus detailedStatus = new BaseStatus(counter.incrementAndGet(),

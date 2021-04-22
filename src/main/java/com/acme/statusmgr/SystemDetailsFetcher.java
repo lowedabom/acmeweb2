@@ -2,6 +2,9 @@ package com.acme.statusmgr;
 
 import com.acme.servermgr.ServerManager;
 
+/**
+ * returns System and Runtime details using Runtime class and System class
+ */
 public class SystemDetailsFetcher implements SystemDetailsFetcherInterface {
 
     @Override
